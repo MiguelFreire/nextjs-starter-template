@@ -2,7 +2,6 @@ import next from 'next';
 import minimist from 'minimist';
 import compression from 'compression';
 import path from 'path';
-import routes from "./routes";
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({dev});
@@ -11,10 +10,8 @@ const express = require('express');
 const args = minimist(process.argv.slice(2));
 const port = args.port ? args.port : DEFAULT_PORT;
 
-
-
 // @ts-ignore
-const handler = routes.getRequestHandler(app);
+const handler = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
   server.use(compression());
